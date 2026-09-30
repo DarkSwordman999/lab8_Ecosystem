@@ -1,0 +1,37 @@
+name: Python check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install project and dev dependencies
+        run: poetry install
+
+      - name: Check code style (flake8)
+        run: poetry run flake8 src tests
+
+      - name: Run tests (pytest)
+        run: poetry run pytest -v
+
+      - name: Smoke test of the CLI entry point
+        run: poetry run booktracker --version
