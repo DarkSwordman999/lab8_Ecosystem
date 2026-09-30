@@ -1,0 +1,27 @@
+[project]
+name = "booktracker"
+version = "1.0.0"
+description = "Учёт прочитанных книг: CLI, сервисы, репозиторий, Open Library"
+authors = [{ name = "Фураев Владислав Викторович", email = "vladislavfuraev33@gmail.com" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "requests (>=2.32,<3.0)",
+]
+
+[project.scripts]
+booktracker = "booktracker.cli:main"
+
+[tool.poetry]
+packages = [{ include = "booktracker", from = "src" }]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0"
+flake8 = "^7.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
